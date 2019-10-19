@@ -1,0 +1,73 @@
+:root {
+  --ion-color-yellow: #ffc109;
+  --ion-color-yellow-rgb: 255, 193, 9;
+  --ion-color-yellow-contrast: #000000;
+  --ion-color-yellow-contrast-rgb: 0, 0, 0;
+  --ion-color-yellow-shade: #e0aa08;
+  --ion-color-yellow-tint: #ffc722;
+
+  --ion-color-bisque: #fed17f;
+  --ion-color-bisque-rgb: 254, 209, 127;
+  --ion-color-bisque-contrast: #000000;
+  --ion-color-bisque-contrast-rgb: 0, 0, 0;
+  --ion-color-bisque-shade: #e0b870;
+  --ion-color-bisque-tint: #fed68c;
+
+  --ion-color-limegreen: #9bcc65;
+  --ion-color-limegreen-rgb: 155, 204, 101;
+  --ion-color-limegreen-contrast: #000000;
+  --ion-color-limegreen-contrast-rgb: 0, 0, 0;
+  --ion-color-limegreen-shade: #88b459;
+  --ion-color-limegreen-tint: #a5d174;
+
+  --ion-color-coral: #fe7043;
+  --ion-color-coral-rgb: 254, 112, 67;
+  --ion-color-coral-contrast: #ffffff;
+  --ion-color-coral-contrast-rgb: 255, 255, 255;
+  --ion-color-coral-shade: #e0633b;
+  --ion-color-coral-tint: #fe7e56;
+
+  --ion-color-darkorange: #ff9800;
+  --ion-color-darkorange-rgb: 255, 152, 0;
+  --ion-color-darkorange-contrast: #ffffff;
+  --ion-color-darkorange-contrast-rgb: 255, 255, 255;
+  --ion-color-darkorange-shade: #e08600;
+  --ion-color-darkorange-tint: #ffa21a;
+
+  --ion-color-lightyellow: #fff9c4;
+  --ion-color-lightyellow-rgb: 255, 249, 196;
+  --ion-color-lightyellow-contrast: #000000;
+  --ion-color-lightyellow-contrast-rgb: 0, 0, 0;
+  --ion-color-lightyellow-shade: #e0dbac;
+  --ion-color-lightyellow-tint: #fffaca;
+
+  // 參考 https://ionicframework.com/docs/theming/themes
+  // 設定全局 toolbar 樣式
+  --ion-toolbar-background: var(--ion-color-darkorange);
+  --ion-toolbar-color: var(--ion-color-darkorange-contrast);
+
+  // 全局背景色
+  --ion-background-color: var(--ion-color-lightyellow);
+  --ion-background-color-rgb: var(--ion-color-lightyellow-rgb);
+}
+
+$customColors: (
+  "yellow",
+  "bisque",
+  "limegreen",
+  "coral",
+  "darkorange",
+  "lightyellow"
+);
+@each $color in $customColors {
+  .ion-color-#{$color} {
+    --ion-color-base: var(--ion-color-#{$color}) !important;
+    --ion-color-base-rgb: var(--ion-color-#{$color}-rgb) !important;
+    --ion-color-contrast: var(--ion-color-#{$color}-contrast) !important;
+    --ion-color-contrast-rgb: var(
+      --ion-color-#{$color}-contrast-rgb
+    ) !important;
+    --ion-color-shade: var(--ion-color-#{$color}-shade) !important;
+    --ion-color-tint: var(--ion-color-#{$color}-tint) !important;
+  }
+}

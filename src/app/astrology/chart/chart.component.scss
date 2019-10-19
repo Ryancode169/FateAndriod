@@ -1,0 +1,19 @@
+.inner-bottom > div {
+    display: inline-block;
+  }
+  
+  .inner-bottom > div:first-child {
+    position: absolute;
+    left: 2px;
+    bottom: 2px;
+    background-color: var(--ion-color-coral);
+    color: var(--ion-color-coral-contrast);
+    padding: 2px;
+    border-radius: 3px;
+  }
+  .inner-bottom > div:last-child {
+    position: absolute;
+    right: 2px;
+    bottom: 2px;
+  }
+  

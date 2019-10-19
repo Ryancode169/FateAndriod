@@ -1,0 +1,263 @@
+{
+    "Heavenly": "丁",
+    "Branch": "卯",
+    "BirthTime": "未",
+    "Month": "10",
+    "Day": "4",
+    "AstrologyChart": [
+        {
+            "palace": "財帛宮",
+            "isBodyPalace": false,
+            "heavenly": "壬",
+            "branch": "子",
+            "major": [
+                {
+                    "Star": "武曲",
+                    "Status": ""
+                },
+                {
+                    "Star": "天府",
+                    "Status": "廟"
+                }
+            ],
+            "minor": [],
+            "righteous": [],
+            "score": 100,
+            "majorDescription": "武曲星代表的是剛毅、勇猛，是一個開創之星，在財帛宮表示你能夠自我開創財富，相當不錯，財富不少，金融業更好。\n\n由於你財帛宮有天府星，剛好該星座為財帛主星且有祿庫，代表你一生富足安樂，又因你善於理財，此生財源滾滾，衣食無缺。",
+            "minorDescription": "",
+            "righteousDescription": ""
+        },
+        {
+            "palace": "子女宮",
+            "isBodyPalace": false,
+            "heavenly": "癸",
+            "branch": "丑",
+            "major": [
+                {
+                    "Star": "太陽",
+                    "Status": "落"
+                }
+            ],
+            "minor": [],
+            "righteous": [
+                {
+                    "Star": "太陰",
+                    "Status": "廟"
+                }
+            ],
+            "score": 100,
+            "majorDescription": "雖有太陽星相助，但由於時間位置不恰當，所以能提供的協助有限，你對待子女的態度會比較冷淡且不關心，因此子女相對會得不道良好的成長環境，也顯得它們獨立性位較強·\n\n有太陽星相助，且由於時間位置剛好恰當，所以能提供相當大的助益，因為你相當關心子女，重視它們的教育，由於你的用心培育，所以你的子女中將會有相當傑出的成就。",
+            "minorDescription": "",
+            "righteousDescription": "有太陰星相助，且由於時間位置剛好恰當，所以能提供相當大的助益，相當重視子女的教育及一般的生活起居禮節，並且也相當在意子女外表的服裝儀容。\n\n有太陰星相助，且由於時間位置剛好恰當，所以能提供相當大的助益，相當重視子女的教育及一般的生活起居禮節，並且也相當在意子女外表的服裝儀容。"
+        },
+        {
+            "palace": "夫妻宮",
+            "isBodyPalace": false,
+            "heavenly": "壬",
+            "branch": "寅",
+            "major": [],
+            "minor": [],
+            "righteous": [
+                {
+                    "Star": "貪狼",
+                    "Status": "平"
+                }
+            ],
+            "score": 68,
+            "majorDescription": "",
+            "minorDescription": "",
+            "righteousDescription": "是個標準的桃花情人，對待情人或配偶，總可以用哪舌燦蓮花的嘴巴，把對方哄的服服貼貼的，但由於桃花太旺，很難始終如一，本身可享盡人間美女或俊男男，但也容易造成婚姻的不穩定。"
+        },
+        {
+            "palace": "兄弟宮",
+            "isBodyPalace": false,
+            "heavenly": "癸",
+            "branch": "卯",
+            "major": [
+                {
+                    "Star": "天機",
+                    "Status": "旺"
+                }
+            ],
+            "minor": [
+                {
+                    "Star": "巨門",
+                    "Status": "廟"
+                }
+            ],
+            "righteous": [],
+            "score": 100,
+            "majorDescription": "和兄弟姐妹間的感情，和睦且相當理性，即使有些意見不同；彼此間也能節有討論而達成共識。兄弟姐妹間容易有理性且具高智慧之人。",
+            "minorDescription": "由於你本身安全指數很高，所以會比較保護自己，不輕易相信別人，如此在兄弟姊妹間就容易出現意見不同之紛歧，所以基本上你與兄弟姊妹情份較薄或是家中只有你一個小孩。",
+            "righteousDescription": ""
+        },
+        {
+            "palace": "命宮",
+            "isBodyPalace": false,
+            "heavenly": "甲",
+            "branch": "辰",
+            "major": [
+                {
+                    "Star": "紫微",
+                    "Status": "地"
+                }
+            ],
+            "minor": [
+                {
+                    "Star": "天相",
+                    "Status": "平"
+                }
+            ],
+            "righteous": [],
+            "score": 100,
+            "majorDescription": "為帝王之星，一生富貴、有權勢，結交的朋友多為有權、有勢或有錢人，無論從事任何事業都適合，擔任上班族可官運亨通、任高階主管或自行創業也會有不錯的成績，本身相貌敦厚、有禮貌，但隱含有霸氣、有主見、喜掌權，對你而言是一顆大吉星，惟要注意別耳根太軟，被阿諛奉承之小人利用或是養成過於自負自戀的狀態，如真如此將浪費此星的好運。",
+            "minorDescription": "天相星是一顆富貴之星，命宮有此星座的朋友常會笑臉迎人、外表給人慈善、貴氣的感覺，性情溫和、穩重而又樂善好施。此生富貴、不缺衣食，不僅對外表相當重視，生活上比較講究，錦衣玉食型、對居住的環境也有一定的要求，只能說真好命，羨慕啊 ! ",
+            "righteousDescription": ""
+        },
+        {
+            "palace": "父母宮",
+            "isBodyPalace": false,
+            "heavenly": "乙",
+            "branch": "巳",
+            "major": [],
+            "minor": [
+                {
+                    "Star": "天梁",
+                    "Status": "陷"
+                }
+            ],
+            "righteous": [],
+            "score": 92,
+            "majorDescription": "",
+            "minorDescription": "天梁星主福壽、也是一顆文藝星，代表福氣、長壽，才華洋溢，亦具備領導統御的能力。受此星的影響你對代雙親甚為孝順，長輩也屬於長壽且有文采之人，雙方關係相當融洽，此生可受雙親及祖先福蔭。",
+            "righteousDescription": ""
+        },
+        {
+            "palace": "福德宮",
+            "isBodyPalace": true,
+            "heavenly": "丙",
+            "branch": "午",
+            "major": [],
+            "minor": [],
+            "righteous": [
+                {
+                    "Star": "七殺",
+                    "Status": "旺"
+                }
+            ],
+            "score": 65,
+            "majorDescription": "",
+            "minorDescription": "",
+            "righteousDescription": "天生福德較少，需靠後天辛勞及佈施才有機會得到，如自己經不起勞苦而養尊處優，男命:無法得到妻子及長輩的協助，一生均需靠自己。女命:忌當悠閒無所世事的家庭主婦(需照顧長輩及幼兒除外)，需靠自己工作、行善慢慢累績福德。"
+        },
+        {
+            "palace": "田宅宮",
+            "isBodyPalace": false,
+            "heavenly": "丁",
+            "branch": "未",
+            "major": [],
+            "minor": [],
+            "righteous": [],
+            "score": 80,
+            "majorDescription": "",
+            "minorDescription": "",
+            "righteousDescription": ""
+        },
+        {
+            "palace": "官祿宮",
+            "isBodyPalace": false,
+            "heavenly": "戊",
+            "branch": "申",
+            "major": [
+                {
+                    "Star": "廉貞",
+                    "Status": ""
+                }
+            ],
+            "minor": [],
+            "righteous": [],
+            "score": 95,
+            "majorDescription": "先恭喜你! 由於你官祿宮有廉貞星，該星座剛好主官祿，代表你在事業上可以登上高層主管位置，官運會比較順遂，也容易掌權，如你再求人和，將可以有絕對加分的效果。",
+            "minorDescription": "",
+            "righteousDescription": ""
+        },
+        {
+            "palace": "交友宮",
+            "isBodyPalace": false,
+            "heavenly": "己",
+            "branch": "酉",
+            "major": [],
+            "minor": [],
+            "righteous": [],
+            "score": 80,
+            "majorDescription": "",
+            "minorDescription": "",
+            "righteousDescription": ""
+        },
+        {
+            "palace": "遷移宮",
+            "isBodyPalace": false,
+            "heavenly": "庚",
+            "branch": "戌",
+            "major": [],
+            "minor": [],
+            "righteous": [
+                {
+                    "Star": "破軍",
+                    "Status": "旺"
+                }
+            ],
+            "score": 68,
+            "majorDescription": "",
+            "minorDescription": "",
+            "righteousDescription": "此生會相當奔波勞苦，四處在找機會，雖然會有短暫的成功，但不容易守住成果，總是會出現程咬金的人物來破壞，讓你又得重新四處覓尋並建立新的機會。"
+        },
+        {
+            "palace": "疾厄宮",
+            "isBodyPalace": false,
+            "heavenly": "辛",
+            "branch": "亥",
+            "major": [
+                {
+                    "Star": "天同",
+                    "Status": ""
+                }
+            ],
+            "minor": [],
+            "righteous": [],
+            "score": 95,
+            "majorDescription": "由於你疾厄宮有天同星，該星座五行屬陽水，所以你要特別注意脾、膀胱、痔瘡、水腫、疝氣、腎臟、泌尿系統（含骨骼及牙齒）之疾。",
+            "minorDescription": "",
+            "righteousDescription": ""
+        }
+    ],
+    "FiveElements": "火六局",
+    "LifeMajorStar": "廉貞",
+    "BodyMajorStar": "天同",
+    "HuaLu": "太陰",
+    "HuaChiuan": "天同",
+    "HuaKe": "天機",
+    "HuaJi": "巨門",
+    "Videos": [
+        {
+            "url": "/Videos/(08)--桃花農曆4月.mp4",
+            "description": "桃花指數大公開 /月份天姚星"
+        },
+        {
+            "url": "/Videos/(37)--功名丑時巳時.mp4",
+            "description": "財富功名提前知 "
+        },
+        {
+            "url": "/Videos/(45)--破財寅時戌時.mp4",
+            "description": "破財指數搶先看"
+        },
+        {
+            "url": "/Videos/(64)--疾厄尾數2.mp4",
+            "description": "健康管理預先知"
+        },
+        {
+            "url": "/Videos/(52)--貴人尾數4-8-0.mp4",
+            "description": "貴人貴人在哪裡  "
+        }
+    ]
+}

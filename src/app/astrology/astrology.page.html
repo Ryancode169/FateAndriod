@@ -1,0 +1,83 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>詹惟中紫微斗數</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="presentPopover()">
+        <ion-icon slot="icon-only" name="settings"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!-- {{chart1.palace}} -->
+  <div class="flex-wrap" margin>
+
+    <div class="flex-container flex-1">
+      <ng-container *ngFor="let d of astrologyChart; let i = index">
+        <div *ngIf="i===0">
+          <!-- <div>
+            <div *ngFor="let c of d.major">{{c.Star}}</div>
+          </div>
+          <div class="inner-bottom">
+            <div class="ion-text-start">{{d.palace}}</div>
+            <div class="ion-text-end">{{d.heavenly}}{{d.branch}}</div>
+          </div> -->
+          <app-chart [chart]="d"></app-chart>
+        </div>
+        <div *ngIf="i===1">
+          <app-chart [chart]="d"></app-chart>
+        </div>
+        <div *ngIf="i===2">
+          <app-chart [chart]="d"></app-chart>
+        </div>
+        <div *ngIf="i===3">
+          <app-chart [chart]="d"></app-chart>
+        </div>
+      </ng-container>
+    </div>
+
+    <div class="flex-container flex-2">
+      <ng-container *ngFor="let d of astrologyChart; let i = index">
+        <div *ngIf="i===4">
+          <app-chart [chart]="d"></app-chart>
+        </div>
+        <div *ngIf="i===5">
+          <app-chart [chart]="d"></app-chart>
+        </div>
+      </ng-container>
+    </div>
+    <div class="flex-container flex-3">
+      <ng-container *ngFor="let d of astrologyChart; let i = index">
+        <div *ngIf="i===6">
+          <app-chart [chart]="d"></app-chart>
+        </div>
+        <div *ngIf="i===7">
+          <app-chart [chart]="d"></app-chart>
+        </div>
+      </ng-container>
+    </div>
+    <div class="flex-container flex-4">
+      <ng-container *ngFor="let d of astrologyChart; let i = index">
+        <div *ngIf="i===8">
+          <app-chart [chart]="d"></app-chart>
+        </div>
+        <div *ngIf="i===9">
+          <app-chart [chart]="d"></app-chart>
+        </div>
+        <div *ngIf="i===10">
+          <app-chart [chart]="d"></app-chart>
+        </div>
+        <div *ngIf="i===11">
+          <app-chart [chart]="d"></app-chart>
+        </div>
+      </ng-container>
+    </div>
+    <div class="flex-center"></div>
+  </div>
+</ion-content>

@@ -1,0 +1,62 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+        <ion-back-button defaultHref="home"></ion-back-button>
+      </ion-buttons>
+      <ion-title>詹惟中紫微斗數</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="presentPopover()">
+          <ion-icon slot="icon-only" name="settings"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content>
+  <ion-card *ngFor="let d of astrologyChart" color="bisque">
+    <ion-card-header color="yellow">
+      <ion-card-title class="ion-text-center">{{d.palace}}</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label>{{d.score}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>{{d.heavenly}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>{{d.branch}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label *ngFor="let maj of d.major">
+            {{maj.Star}} {{maj.Status}}
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label *ngFor="let min of d.minor">
+            {{min.Star}} {{min.Status}}
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label *ngFor="let rig of d.righteous">
+            {{rig.Star}} {{rig.Status}}
+          </ion-label>
+        </ion-item>
+      </ion-list>
+
+      <div>
+        {{d.majorDescription}}
+      </div>
+      <div>
+        {{d.minorDescription}}
+      </div>
+      <div>
+        {{d.righteousDescription}}
+      </div>
+
+    </ion-card-content>
+  </ion-card>
+</ion-content>

@@ -1,0 +1,7 @@
+{
+  "name": "p8",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

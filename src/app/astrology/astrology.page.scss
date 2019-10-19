@@ -1,0 +1,94 @@
+// ion-grid{
+//     display: table;
+//     background-color: #ffffff;
+//     border:1px solid #e5e5e5;
+//     border-collapse: collapse;
+// }
+
+// ion-row{
+//     display: table-row;
+// }
+// ion-col{
+//     display: table-cell;
+//     border:1px solid #e5e5e5;
+
+// }
+
+.midcell {
+    border: none;
+  }
+  
+  .row1 > li {
+    float: left;
+  }
+  
+  .flex-wrap {
+    position: relative;
+    font-size: 0.7rem;
+  }
+  
+  .flex-container {
+    display: flex;
+    flex-wrap: nowrap;
+  }
+  .flex-container > div {
+    height: 5rem;
+    text-align: left;
+    position: relative;
+  }
+  
+  .flex-container > div > div {
+    height: 2.5rem;
+    padding: 2px;
+    position: relative;
+  }
+  
+  // .inner-bottom > div {
+  //   display: inline-block;
+  // //   width: 50%;
+  // //   height: 100%;
+  // //   vertical-align: bottom;
+  // }
+  
+  // .inner-bottom > div:first-child {
+  //   position: absolute;
+  //   left: 2px;
+  //   bottom: 2px;
+  //   background-color: var(--ion-color-coral);
+  //   color:var(--ion-color-coral-contrast);
+  //   padding:2px;
+  //   border-radius: 3px;
+  // }
+  // .inner-bottom > div:last-child {
+  //     position: absolute;
+  //     right: 2px;
+  //     bottom: 2px;
+  // }
+    
+  
+  .flex-1 > div,
+  .flex-4 > div {
+    width: 25%;
+    border: 1px solid var(--ion-color-darkorange);
+  }
+  
+  .flex-2,
+  .flex-3 {
+    justify-content: space-between;
+  }
+  
+  .flex-2 > div,
+  .flex-3 > div {
+    width: 25%;
+    border: 1px solid var(--ion-color-darkorange);
+  }
+  
+  .flex-center {
+    position: absolute;
+    top: 5rem;
+    left: 25%;
+    height: 10rem;
+    width: 50%;
+    border: 1px solid red;
+  }
+  
