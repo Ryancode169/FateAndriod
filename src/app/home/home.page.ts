@@ -4,6 +4,7 @@ import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { PopoverController, LoadingController } from '@ionic/angular';
 import { NgForm } from '@angular/forms';
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
 
 @Component({
   selector: 'app-home',
@@ -17,6 +18,7 @@ export class HomePage {
     private authService: AuthService,
     private router: Router,
     private loadingCtrl: LoadingController,
+    private nativeStorage: NativeStorage
   ) { }
 
   onMySubmit(form: NgForm) {
@@ -45,6 +47,20 @@ export class HomePage {
         // }, 1500);
 
         this.userService.setUser(form.value.username, form.value.birthday, form.value.birthdaytime, form.value.cellphone);
+        // 儲存
+        this.nativeStorage.setItem('username', { property: 'value', anotherProperty: 'anotherValue' })
+          .then(
+            (data) => console.log('Stored first item!', data),
+            error => console.error('Error storing item', error)
+          );
+
+        this.nativeStorage.getItem('username')
+          .then(
+            data => console.log(data),
+            error => console.error(error)
+          );
+
+
 
         // set a key/value
         // this.storage.set('username', form.value.username);
