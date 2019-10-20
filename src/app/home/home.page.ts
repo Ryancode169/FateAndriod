@@ -6,6 +6,8 @@ import { PopoverController, LoadingController } from '@ionic/angular';
 import { NgForm } from '@angular/forms';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { User } from '../services/user.model';
+import { Observable } from 'rxjs';
+import { DataService } from '../services/data.service';
 
 
 @Component({
@@ -17,20 +19,28 @@ export class HomePage {
 
   userData: any;
   dateType: any;
+  monthVal = [];
+  dayVal = [];
+  lunarDate: Observable<any>;
+
 
   constructor(
     private userService: UserService,
     private authService: AuthService,
+    private dataService: DataService,
     private router: Router,
     private loadingCtrl: LoadingController,
     private nativeStorage: NativeStorage
   ) {
-    this.dateType = '0';
+    this.dateType = '0'; // 預設國曆
+    this.monthVal = [1, 2, 3];
+    this.dayVal = [1, 2, 3];
   }
 
-
-
   segmentChanged(ev: any) {
+    if (ev.detail.value === '1') {
+      this.lunarDate = this.dataService.getLunarDate();
+    }
     console.log('Segment changed', ev.detail.value);
   }
 
@@ -53,9 +63,7 @@ export class HomePage {
       IsLeap: false
     };
 
-    console.log(form.value.dateType);
-
-
+    // console.log('test', this.userData.DateType);
 
     this.loadingCtrl.create({ keyboardClose: true, message: '加載中...' })
       .then(loadingEl => {
@@ -72,18 +80,18 @@ export class HomePage {
 
         this.userService.setUser(this.userData);
         // 儲存
-        this.nativeStorage.setItem('username', { property: 'value', anotherProperty: 'anotherValue' })
+        this.nativeStorage.setItem('UserData', this.userData)
           .then(
             (data) => console.log('Stored first item!', data),
             error => console.error('Error storing item', error)
           );
 
-        this.nativeStorage.getItem('username')
-          .then(
-            data => console.log(data),
-            error => console.error(error)
-          );
-
+        // 讀取
+        // this.nativeStorage.getItem('UserData')
+        //   .then(
+        //     data => console.log(data),
+        //     error => console.error(error)
+        //   );
 
 
         // set a key/value

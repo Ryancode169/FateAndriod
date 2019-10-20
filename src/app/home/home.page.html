@@ -37,7 +37,7 @@
                 <ion-input type="text" ngModel name="username" required #unameCtrl="ngModel"></ion-input>
               </ion-item>
 
-              
+
               <!-- <ion-item class="" lines="none">
                   
                   <ion-segment (ionChange)="segmentChanged($event)" color="darkorange">
@@ -52,14 +52,15 @@
 
               <ion-item class="ion-padding-top">
                 <ion-label position="stacked">曆法</ion-label>
-                <ion-segment [(ngModel)]="dateType" name="dateType" (ionChange)="segmentChanged($event)" color="darkorange">
-                    <ion-segment-button value="0" checked>
-                      <ion-label>國曆</ion-label>
-                    </ion-segment-button>
-                    <ion-segment-button value="1">
-                      <ion-label>陰曆</ion-label>
-                    </ion-segment-button>
-                  </ion-segment>
+                <ion-segment [(ngModel)]="dateType" name="dateType" (ionChange)="segmentChanged($event)"
+                  color="darkorange">
+                  <ion-segment-button value="0" checked>
+                    <ion-label>國曆</ion-label>
+                  </ion-segment-button>
+                  <ion-segment-button value="1">
+                    <ion-label>陰曆</ion-label>
+                  </ion-segment-button>
+                </ion-segment>
                 <!-- <ion-select placeholder="" okText="確定" cancelText="取消">
                   <ion-select-option value="0">國曆</ion-select-option>
                   <ion-select-option value="1">陰曆</ion-select-option>
@@ -72,12 +73,13 @@
               </ion-item>
               <ion-item>
                 <ion-label position="stacked">月</ion-label>
-                <ion-datetime name="month" ngModel displayFormat="MM" required></ion-datetime>
+                <ion-datetime name="month" ngModel [monthValues]="monthVal" displayFormat="MM" required>
+                </ion-datetime>
               </ion-item>
 
               <ion-item>
                 <ion-label position="stacked">日</ion-label>
-                <ion-datetime name="day" ngModel displayFormat="DD" required></ion-datetime>
+                <ion-datetime name="day" ngModel [dayValues]="dayVal" displayFormat="DD" required></ion-datetime>
               </ion-item>
 
               <!-- <ion-item>
@@ -87,7 +89,7 @@
               </ion-item> -->
 
               <ion-item>
-                <ion-label position="stacked">出生時辰 
+                <ion-label position="stacked">出生時辰
                 </ion-label>
                 <ion-select placeholder="" ngModel name="birthdaytime" required>
                   <ion-select-option value="0">時辰未知</ion-select-option>
@@ -127,7 +129,7 @@
               </ion-item>
 
               <ion-item>
-                <ion-label position="stacked">手機號碼 
+                <ion-label position="stacked">手機號碼
                 </ion-label>
                 <ion-input type="tel" ngModel name="cellphone" required></ion-input>
               </ion-item>
@@ -184,7 +186,7 @@
       </ion-col>
       <ion-col size-sm="4" size-md="2">
         <a href="">
-          <ion-img src="../../assets/images//customer_service.png"></ion-img>
+          <ion-img src="../../assets/images/customer_service.png"></ion-img>
           <!-- <img src="../../assets/images/customer_service.png" alt=""> -->
         </a>
         <div class="ion-margin">客服</div>
