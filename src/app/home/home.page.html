@@ -45,9 +45,23 @@
               </ion-item>
 
               <ion-item>
-                <ion-label position="stacked">出生時間 <ion-text color="danger">*</ion-text>
+                <ion-label position="stacked">出生時辰 <ion-text color="danger">*</ion-text>
                 </ion-label>
+                <ion-radio-group>
+                    <!-- <ion-list-header>
+                      <ion-label>Name</ion-label>
+                    </ion-list-header> -->
+                    <ion-item>
+                      <ion-label>國曆</ion-label>
+                      <ion-radio slot="start" value="0" checked></ion-radio>
+                    </ion-item>
+                    <ion-item>
+                      <ion-label>陰曆</ion-label>
+                      <ion-radio slot="start" value="1"></ion-radio>
+                    </ion-item>
+                  </ion-radio-group>
                 <ion-select ngModel name="birthdaytime" required>
+                  <ion-select-option value="0">時辰未知</ion-select-option>
                   <ion-select-option value="0">00:00~00:59</ion-select-option>
                   <ion-select-option value="1">01:00~02:59</ion-select-option>
                   <ion-select-option value="2">03:00~04:59</ion-select-option>
