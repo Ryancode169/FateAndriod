@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { PopoverController, LoadingController } from '@ionic/angular';
 import { NgForm } from '@angular/forms';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { User } from '../services/user.model';
+
 
 @Component({
   selector: 'app-home',
@@ -13,13 +15,24 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
 })
 export class HomePage {
 
+  userData: any;
+  dateType: any;
+
   constructor(
     private userService: UserService,
     private authService: AuthService,
     private router: Router,
     private loadingCtrl: LoadingController,
     private nativeStorage: NativeStorage
-  ) { }
+  ) {
+    this.dateType = '0';
+  }
+
+
+
+  segmentChanged(ev: any) {
+    console.log('Segment changed', ev.detail.value);
+  }
 
   onMySubmit(form: NgForm) {
 
@@ -28,12 +41,22 @@ export class HomePage {
       return;
     }
 
-    // this.user = {
-    //   username: form.value.username,
-    //   birthday: form.value.birthday,
-    //   birthdaytime: form.value.birthdaytime,
-    //   cellphone: form.value.cellphone
-    // }
+    this.userData = {
+      Name: form.value.username,
+      Gender: form.value.dateType,
+      Cellphone: form.value.cellphone,
+      BirthTime: form.value.birthdaytime,
+      DateType: form.value.dateType,
+      Year: form.value.year,
+      Month: form.value.month,
+      Day: form.value.day,
+      IsLeap: false
+    };
+
+    console.log(form.value.dateType);
+
+
+
     this.loadingCtrl.create({ keyboardClose: true, message: '加載中...' })
       .then(loadingEl => {
         loadingEl.present();
@@ -46,7 +69,8 @@ export class HomePage {
         //   this.router.navigate(['/home/tabs/astrology']);
         // }, 1500);
 
-        this.userService.setUser(form.value.username, form.value.birthday, form.value.birthdaytime, form.value.cellphone);
+
+        this.userService.setUser(this.userData);
         // 儲存
         this.nativeStorage.setItem('username', { property: 'value', anotherProperty: 'anotherValue' })
           .then(
@@ -76,7 +100,7 @@ export class HomePage {
         this.authService.inputvaild();
         // this.homeService.fetchHalfResult();
         loadingEl.dismiss();
-        this.router.navigate(['/astrology']);
+        //this.router.navigate(['/astrology']);
 
 
       });

@@ -23,63 +23,111 @@
     <ion-row>
       <ion-col id="info" size-md="8" offset-md="2">
         <!-- <form #f="ngForm" (ngSubmit)="onSubmit(f)"> -->
-            <form #f="ngForm" (ngSubmit)="onMySubmit(f)">
+        <form #f="ngForm" (ngSubmit)="onMySubmit(f)">
           <ion-card class="ion-no-margin">
             <ion-card-header>
               <ion-card-title>了解您的紫微命盤</ion-card-title>
             </ion-card-header>
             <ion-card-content>
+
               <ion-item>
-                <ion-label position="stacked">您的姓名<ion-text color="danger">*</ion-text>
+                <ion-label position="stacked">您的姓名
+                  <!-- <ion-text color="danger">*</ion-text> -->
                 </ion-label>
                 <ion-input type="text" ngModel name="username" required #unameCtrl="ngModel"></ion-input>
               </ion-item>
-              <!-- <ion-item *ngIf="!unameCtrl.valid && unameCtrl.touched" lines="none">
-                    請填入姓名
-                  </ion-item> -->
+
+              
+              <!-- <ion-item class="" lines="none">
+                  
+                  <ion-segment (ionChange)="segmentChanged($event)" color="darkorange">
+                      <ion-segment-button value="0" checked>
+                        <ion-label>國曆</ion-label>
+                      </ion-segment-button>
+                      <ion-segment-button value="1">
+                        <ion-label>陰曆</ion-label>
+                      </ion-segment-button>
+                    </ion-segment>
+              </ion-item> -->
+
+              <ion-item class="ion-padding-top">
+                <ion-label position="stacked">曆法</ion-label>
+                <ion-segment [(ngModel)]="dateType" name="dateType" (ionChange)="segmentChanged($event)" color="darkorange">
+                    <ion-segment-button value="0" checked>
+                      <ion-label>國曆</ion-label>
+                    </ion-segment-button>
+                    <ion-segment-button value="1">
+                      <ion-label>陰曆</ion-label>
+                    </ion-segment-button>
+                  </ion-segment>
+                <!-- <ion-select placeholder="" okText="確定" cancelText="取消">
+                  <ion-select-option value="0">國曆</ion-select-option>
+                  <ion-select-option value="1">陰曆</ion-select-option>
+                </ion-select> -->
+              </ion-item>
 
               <ion-item>
+                <ion-label position="stacked">年</ion-label>
+                <ion-datetime name="year" ngModel displayFormat="YYYY" min="1910" required></ion-datetime>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked">月</ion-label>
+                <ion-datetime name="month" ngModel displayFormat="MM" required></ion-datetime>
+              </ion-item>
+
+              <ion-item>
+                <ion-label position="stacked">日</ion-label>
+                <ion-datetime name="day" ngModel displayFormat="DD" required></ion-datetime>
+              </ion-item>
+
+              <!-- <ion-item>
                 <ion-label position="stacked">出生日期 <ion-text color="danger">*</ion-text>
                 </ion-label>
                 <ion-datetime displayFormat="YYYY-MM-DD" placeholder="" ngModel name="birthday" required></ion-datetime>
-              </ion-item>
+              </ion-item> -->
 
               <ion-item>
-                <ion-label position="stacked">出生時辰 <ion-text color="danger">*</ion-text>
+                <ion-label position="stacked">出生時辰 
                 </ion-label>
-                <ion-radio-group>
-                    <!-- <ion-list-header>
-                      <ion-label>Name</ion-label>
-                    </ion-list-header> -->
-                    <ion-item>
-                      <ion-label>國曆</ion-label>
-                      <ion-radio slot="start" value="0" checked></ion-radio>
-                    </ion-item>
-                    <ion-item>
-                      <ion-label>陰曆</ion-label>
-                      <ion-radio slot="start" value="1"></ion-radio>
-                    </ion-item>
-                  </ion-radio-group>
-                <ion-select ngModel name="birthdaytime" required>
+                <ion-select placeholder="" ngModel name="birthdaytime" required>
                   <ion-select-option value="0">時辰未知</ion-select-option>
-                  <ion-select-option value="0">00:00~00:59</ion-select-option>
-                  <ion-select-option value="1">01:00~02:59</ion-select-option>
-                  <ion-select-option value="2">03:00~04:59</ion-select-option>
-                  <ion-select-option value="3">05:00~06:59</ion-select-option>
-                  <ion-select-option value="4">07:00~08:59</ion-select-option>
-                  <ion-select-option value="5">09:00~10:59</ion-select-option>
-                  <ion-select-option value="6">11:00~12:59</ion-select-option>
-                  <ion-select-option value="7">13:00~14:59</ion-select-option>
-                  <ion-select-option value="8">15:00~16:59</ion-select-option>
-                  <ion-select-option value="9">17:00~18:59</ion-select-option>
-                  <ion-select-option value="10">19:00~20:59</ion-select-option>
-                  <ion-select-option value="11">21:00~22:59</ion-select-option>
-                  <ion-select-option value="12">23:00~23:59</ion-select-option>
+                  <ion-select-option value="1">00:00~00:59</ion-select-option>
+                  <ion-select-option value="2">01:00~02:59</ion-select-option>
+                  <ion-select-option value="3">03:00~04:59</ion-select-option>
+                  <ion-select-option value="4">05:00~06:59</ion-select-option>
+                  <ion-select-option value="5">07:00~08:59</ion-select-option>
+                  <ion-select-option value="6">09:00~10:59</ion-select-option>
+                  <ion-select-option value="7">11:00~12:59</ion-select-option>
+                  <ion-select-option value="8">13:00~14:59</ion-select-option>
+                  <ion-select-option value="9">15:00~16:59</ion-select-option>
+                  <ion-select-option value="10">17:00~18:59</ion-select-option>
+                  <ion-select-option value="11">19:00~20:59</ion-select-option>
+                  <ion-select-option value="12">21:00~22:59</ion-select-option>
+                  <ion-select-option value="13">23:00~23:59</ion-select-option>
                 </ion-select>
+                <!--               
+                <ion-grid class="ion-no-margin">
+                  <ion-row>
+                    <ion-col size="12" class="ion-no-padding">
+                      
+                    </ion-col>
+                  </ion-row>
+                  <ion-row>
+                    <ion-col  size="12">
+                     
+                    </ion-col>
+                  </ion-row>
+                  <ion-row>
+                    <ion-col  size="12">
+                    
+                    </ion-col>
+                  </ion-row>
+                </ion-grid> -->
+
               </ion-item>
 
               <ion-item>
-                <ion-label position="stacked">手機號碼 <ion-text color="danger">*</ion-text>
+                <ion-label position="stacked">手機號碼 
                 </ion-label>
                 <ion-input type="tel" ngModel name="cellphone" required></ion-input>
               </ion-item>
