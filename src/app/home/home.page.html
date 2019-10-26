@@ -34,7 +34,7 @@
                 <ion-label position="stacked">您的姓名
                   <!-- <ion-text color="danger">*</ion-text> -->
                 </ion-label>
-                <ion-input type="text" ngModel name="username" required #unameCtrl="ngModel"></ion-input>
+                <ion-input type="text" [(ngModel)]="userName" name="username" required #unameCtrl="ngModel"></ion-input>
               </ion-item>
 
 
@@ -73,12 +73,32 @@
               </ion-item>
               <ion-item>
                 <ion-label position="stacked">月</ion-label>
-                <ion-datetime name="month" [(ngModel)]="month" [monthValues]="monthVal" displayFormat="MM" (ionChange)="changeMonth($event)" required>
-                </ion-datetime>
+                <!-- <ion-datetime name="month" [(ngModel)]="month" [monthValues]="monthVal" displayFormat="MM" (ionChange)="changeMonth($event)" required></ion-datetime> -->
+                <ng-container *ngIf="isLunarCalendar; else notLunarCalendar">
+                <ion-select  [(ngModel)]="month" name="month" [selectedText]="month" required (ionChange)="changeMonth($event)">
+                    <ng-container *ngFor="let mon of LunarDates;">
+                        <ng-container *ngIf="mon.IsLeap; else notLeap">
+                            <ion-select-option >閏{{mon.Month}}</ion-select-option>
+                        </ng-container>
+                        <ng-template #notLeap>
+                            <ion-select-option [value]="mon.Month">{{mon.Month}}</ion-select-option>
+                        </ng-template>
+                    </ng-container>
+                </ion-select>
+              </ng-container>
+              <ng-template #notLunarCalendar>
+                  <ion-select  [(ngModel)]="month" name="month" [selectedText]="month" required (ionChange)="changeMonth($event)">
+                      <ion-select-option *ngFor="let mon of monthVal" >{{mon}}</ion-select-option>
+                  </ion-select>
+              </ng-template>
+
               </ion-item>
               <ion-item>
                 <ion-label position="stacked">日</ion-label>
-                <ion-datetime name="day" [(ngModel)]="day" [dayValues]="dayVal" displayFormat="DD" value="1" required></ion-datetime>
+                <ion-select  [(ngModel)]="day" name="day" [selectedText]="day" required>
+                    <ion-select-option *ngFor="let d of dayVal" >{{d}}</ion-select-option>
+                </ion-select>
+                <!-- <ion-datetime name="day" [(ngModel)]="day" [dayValues]="dayVal" displayFormat="DD" value="1" required></ion-datetime> -->
               </ion-item>
 
               <!-- <ion-item>
@@ -90,7 +110,7 @@
               <ion-item>
                 <ion-label position="stacked">出生時辰
                 </ion-label>
-                <ion-select placeholder="" ngModel name="birthdaytime" required>
+                <ion-select placeholder="" ngModel name="birthdaytime" [selectedText]="birthTime" required>
                   <ion-select-option value="0">時辰未知</ion-select-option>
                   <ion-select-option value="1">00:00~00:59</ion-select-option>
                   <ion-select-option value="2">01:00~02:59</ion-select-option>

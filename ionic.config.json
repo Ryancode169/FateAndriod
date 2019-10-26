@@ -4,5 +4,11 @@
     "capacitor": {},
     "cordova": {}
   },
-  "type": "angular"
+  "type": "angular",
+  "proxies": [
+    {
+        "path": "/api",
+        "proxyUrl": "http://1.34.27.193"
+    }
+  ]
 }

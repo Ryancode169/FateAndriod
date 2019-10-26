@@ -7,5 +7,5 @@ export interface User {
   Year: number;
   Month: number;
   Day: number;
-  IsLeap: boolean; // 閏月
+  IsLeap: boolean; // 潤月
 }
