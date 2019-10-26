@@ -43,3 +43,9 @@ export interface VideosEntity {
     url: string;
     description: string;
 }
+
+export interface LunarDate {
+    Month: number;
+    IsLeap: boolean;
+    LastDay: number;
+}

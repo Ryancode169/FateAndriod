@@ -8,6 +8,7 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { User } from '../services/user.model';
 import { Observable } from 'rxjs';
 import { DataService } from '../services/data.service';
+import { LunarDate } from '../services/data.model';
 
 
 @Component({
@@ -21,8 +22,13 @@ export class HomePage {
   dateType: any;
   monthVal = [];
   dayVal = [];
-  lunarDate: Observable<any>;
-
+  // obLunarDate: Observable<LunarDate[]>;
+  LunarDates: LunarDate[];
+  isLunarCalendar: boolean;
+  year: number;
+  month: number;
+  day: number;
+  defaultDate = '1980-01-01';
 
   constructor(
     private userService: UserService,
@@ -33,15 +39,56 @@ export class HomePage {
     private nativeStorage: NativeStorage
   ) {
     this.dateType = '0'; // 預設國曆
-    this.monthVal = [1, 2, 3];
-    this.dayVal = [1, 2, 3];
+    this.year = new Date(this.defaultDate).getFullYear();
+    this.month = new Date(this.defaultDate).getMonth();
+    this.day = new Date(this.defaultDate).getDate();
+    this.monthVal = Array.from({ length: 12 }, (v, i) => i + 1);
+    this.dayVal = Array.from({ length: 31 }, (v, i) => i + 1);
+    this.isLunarCalendar = false;
   }
 
   segmentChanged(ev: any) {
     if (ev.detail.value === '1') {
-      this.lunarDate = this.dataService.getLunarDate();
+      this.isLunarCalendar = true;
+      // this.obLunarDate = this.dataService.getLunarDate();
+      console.log('Segment changed year', this.year);
+      this.dataService.getLunarDate(this.year).subscribe((res) => {
+        this.LunarDates = res;
+      });
+      console.log('Segment changed dates', this.LunarDates);
+    } else {
+      this.isLunarCalendar = false;
     }
-    console.log('Segment changed', ev.detail.value);
+  }
+
+  changeYear(ev: any) {
+    this.year = new Date(ev.detail.value).getFullYear();
+    const m = new Date(this.month).getMonth() + 1;
+    const d = new Date(this.day).getDate();
+    if (this.isLunarCalendar) {
+      this.dataService.getLunarDate(this.year).subscribe((res) => {
+        this.LunarDates = res;
+      });
+      // console.log('change Year', this.year);
+      console.log('change Year', this.LunarDates);
+    } else {
+      const date = new Date(this.year, m, d);
+      console.log('Year c', date);
+      const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+      this.dayVal = Array.from({ length: lastDay }, (v, i) => i + 1);
+      this.day = new Date(this.day).getDate() > lastDay ? 1 : this.day; // 超過當月最後一天重設為1
+    }
+  }
+
+  changeMonth(ev: any) {
+    if (this.isLunarCalendar) {
+
+    } else {
+      const date = new Date(ev.detail.value);
+      const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+      this.dayVal = Array.from({ length: lastDay }, (v, i) => i + 1);
+      this.day = new Date(this.day).getDate() > lastDay ? 1 : this.day; // 超過當月最後一天重設為1
+    }
   }
 
   onMySubmit(form: NgForm) {
@@ -80,11 +127,11 @@ export class HomePage {
 
         this.userService.setUser(this.userData);
         // 儲存
-        this.nativeStorage.setItem('UserData', this.userData)
-          .then(
-            (data) => console.log('Stored first item!', data),
-            error => console.error('Error storing item', error)
-          );
+        // this.nativeStorage.setItem('UserData', this.userData)
+        //   .then(
+        //     (data) => console.log('Stored first item!', data),
+        //     error => console.error('Error storing item', error)
+        //   );
 
         // 讀取
         // this.nativeStorage.getItem('UserData')

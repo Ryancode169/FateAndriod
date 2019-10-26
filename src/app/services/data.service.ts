@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
-import { Astrology } from './data.model';
+import { Astrology, LunarDate } from './data.model';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 
 @Injectable({
@@ -32,14 +32,18 @@ export class DataService {
     return this.http.get<Astrology>(this.dataUrl);
   }
 
-  getLunarDate(): Observable<any> {
-    this.nativeStorage.getItem('UserData')
-      .then(
-        data => this.year = data.Year,
-        error => console.error(error)
-      );
-    return this.http.get<any>(this.lunarCalendarUrl + this.year);
+  getLunarDate(year: number): Observable<LunarDate[]> {
+    // this.nativeStorage.getItem('UserData')
+    //   .then(
+    //     data => this.year = data.Year,
+    //     error => console.error(error)
+    //   );
+
+
+    // return this.http.get(`${this.url}?s=${encodeURI(title)}&type=${type}&apikey=${this.apiKey}`).pipe(
+    //   map(results => results['Search'])
+    // );
+
+    return this.http.get<LunarDate[]>(this.lunarCalendarUrl + year);
   }
-
-
 }

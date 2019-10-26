@@ -69,17 +69,16 @@
 
               <ion-item>
                 <ion-label position="stacked">年</ion-label>
-                <ion-datetime name="year" ngModel displayFormat="YYYY" min="1910" required></ion-datetime>
+                <ion-datetime name="year" [(ngModel)]="year" displayFormat="YYYY" min="1911" (ionChange)="changeYear($event)" required></ion-datetime>
               </ion-item>
               <ion-item>
                 <ion-label position="stacked">月</ion-label>
-                <ion-datetime name="month" ngModel [monthValues]="monthVal" displayFormat="MM" required>
+                <ion-datetime name="month" [(ngModel)]="month" [monthValues]="monthVal" displayFormat="MM" (ionChange)="changeMonth($event)" required>
                 </ion-datetime>
               </ion-item>
-
               <ion-item>
                 <ion-label position="stacked">日</ion-label>
-                <ion-datetime name="day" ngModel [dayValues]="dayVal" displayFormat="DD" required></ion-datetime>
+                <ion-datetime name="day" [(ngModel)]="day" [dayValues]="dayVal" displayFormat="DD" value="1" required></ion-datetime>
               </ion-item>
 
               <!-- <ion-item>
