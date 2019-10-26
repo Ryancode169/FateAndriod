@@ -25,7 +25,10 @@ export class DataService {
 
   year: any;
 
-  constructor(private http: HttpClient, private nativeStorage: NativeStorage) { }
+  constructor(
+    private http: HttpClient,
+    private nativeStorage: NativeStorage
+  ) { }
 
   // 讀取local json file (正式發布需改成API方式)
   getLocalData(): Observable<Astrology> {

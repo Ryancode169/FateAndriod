@@ -4,7 +4,7 @@ import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { PopoverController, LoadingController } from '@ionic/angular';
 import { NgForm } from '@angular/forms';
-import { NativeStorage } from '@ionic-native/native-storage/ngx';
+// import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { User } from '../services/user.model';
 import { Observable } from 'rxjs';
 import { DataService } from '../services/data.service';
@@ -36,7 +36,7 @@ export class HomePage {
     private dataService: DataService,
     private router: Router,
     private loadingCtrl: LoadingController,
-    private nativeStorage: NativeStorage
+    // private nativeStorage: NativeStorage
   ) {
     this.dateType = '0'; // 預設國曆
     this.year = new Date(this.defaultDate).getFullYear();
@@ -51,11 +51,10 @@ export class HomePage {
     if (ev.detail.value === '1') {
       this.isLunarCalendar = true;
       // this.obLunarDate = this.dataService.getLunarDate();
-      console.log('Segment changed year', this.year);
       this.dataService.getLunarDate(this.year).subscribe((res) => {
         this.LunarDates = res;
       });
-      console.log('Segment changed dates', this.LunarDates);
+      console.log('Segment changed LunarDates', this.LunarDates);
     } else {
       this.isLunarCalendar = false;
     }
