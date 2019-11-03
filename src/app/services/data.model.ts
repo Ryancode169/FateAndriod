@@ -1,6 +1,7 @@
 export interface Astrology {
     Heavenly: string;
     Branch: string;
+    BirthDay: string;
     BirthTime: string;
     Month: string;
     Day: string;
@@ -19,23 +20,18 @@ export interface AstrologyChartEntity {
     isBodyPalace: boolean;
     heavenly: string;
     branch: string;
-    major?: (MajorEntity | null)[] | null;
-    minor?: (MinorEntity | null)[] | null;
-    righteous?: (RighteousEntity | null)[] | null;
+    major?: (StarEntity | null)[] | null;
+    minor?: (StarEntity | null)[] | null;
+    secondary?: (StarEntity | null)[] | null;
+    righteous?: (StarEntity | null)[] | null;
     score: number;
     majorDescription: string;
     minorDescription: string;
+    secondaryDescription: string;
     righteousDescription: string;
 }
-export interface MajorEntity {
-    Star: string;
-    Status: string;
-}
-export interface MinorEntity {
-    Star: string;
-    Status: string;
-}
-export interface RighteousEntity {
+
+export interface StarEntity {
     Star: string;
     Status: string;
 }

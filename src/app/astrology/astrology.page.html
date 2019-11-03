@@ -6,7 +6,7 @@
     </ion-buttons>
     <ion-title>詹惟中紫微斗數</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="presentPopover()">
+      <ion-button >
         <ion-icon slot="icon-only" name="settings"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -19,7 +19,7 @@
   <div class="flex-wrap" margin>
 
     <div class="flex-container flex-1">
-      <ng-container *ngFor="let d of astrologyChart; let i = index">
+      <ng-container *ngFor="let d of display; let i = index">
         <div *ngIf="i===0">
           <!-- <div>
             <div *ngFor="let c of d.major">{{c.Star}}</div>
@@ -43,7 +43,7 @@
     </div>
 
     <div class="flex-container flex-2">
-      <ng-container *ngFor="let d of astrologyChart; let i = index">
+      <ng-container *ngFor="let d of display; let i = index">
         <div *ngIf="i===4">
           <app-chart [chart]="d"></app-chart>
         </div>
@@ -53,7 +53,7 @@
       </ng-container>
     </div>
     <div class="flex-container flex-3">
-      <ng-container *ngFor="let d of astrologyChart; let i = index">
+      <ng-container *ngFor="let d of display; let i = index">
         <div *ngIf="i===6">
           <app-chart [chart]="d"></app-chart>
         </div>
@@ -63,7 +63,7 @@
       </ng-container>
     </div>
     <div class="flex-container flex-4">
-      <ng-container *ngFor="let d of astrologyChart; let i = index">
+      <ng-container *ngFor="let d of display; let i = index">
         <div *ngIf="i===8">
           <app-chart [chart]="d"></app-chart>
         </div>
@@ -78,6 +78,26 @@
         </div>
       </ng-container>
     </div>
-    <div class="flex-center"></div>
+    <div class="flex-center">
+      <div>
+          <ion-text>命局: {{astrology.FiveElements}}</ion-text>
+      </div>
+      <div>
+          <ion-text>命主: {{astrology.LifeMajorStar}}</ion-text>
+      </div>
+      <div>
+          <ion-text>身主: {{astrology.BodyMajorStar}}</ion-text>
+      </div>
+    </div>
   </div>
+
+  <div class="ion-margin">
+      <ion-text color="coral">特別說明:</ion-text>
+      <div>
+          <ion-text color="coral">
+              同一宮位內，會因不同星座特性，可能會出現正負不同之說明內容，代表該宮位你會有時出現正、反單一現象，且有時也會出現互相融合及抵銷之現象。
+          </ion-text>
+        </div>
+  </div>
+  
 </ion-content>

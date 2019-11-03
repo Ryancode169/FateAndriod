@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
-import { PopoverController, LoadingController } from '@ionic/angular';
-import { NgForm } from '@angular/forms';
+import { PopoverController, LoadingController, AlertController } from '@ionic/angular';
+import { NgForm, FormBuilder, FormControl, Validators, FormGroup, FormsModule, ReactiveFormsModule, FormArray } from '@angular/forms';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { User } from '../services/user.model';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { DataService } from '../services/data.service';
 import { LunarDate } from '../services/data.model';
+
 
 
 @Component({
@@ -16,7 +17,9 @@ import { LunarDate } from '../services/data.model';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage implements OnInit {
+export class HomePage implements OnInit, OnDestroy {
+
+  private LunarDateSubs: Subscription;
 
   userData: User;
   dateType: number;
@@ -34,33 +37,29 @@ export class HomePage implements OnInit {
   cellPhone: string;
   birthTime: number;
 
-  defaultDate = '1990-01-01';
+
+  public validationsForm: FormGroup;
 
   constructor(
-    private userService: UserService,
-    private authService: AuthService,
+    public userService: UserService,
+    public authService: AuthService,
     private dataService: DataService,
     private router: Router,
     private loadingCtrl: LoadingController,
-    private nativeStorage: NativeStorage
+    private nativeStorage: NativeStorage,
+    private alertController: AlertController,
+    public formBuilder: FormBuilder,
   ) {
-    this.dateType = 0; // 預設為國(陽)曆
-    this.year = new Date(this.defaultDate).getFullYear();
-    this.month = new Date(this.defaultDate).getMonth() + 1;
-    this.day = new Date(this.defaultDate).getDate();
 
     this.monthVal = Array.from({ length: 12 }, (v, i) => i + 1);
     this.dayVal = Array.from({ length: 31 }, (v, i) => i + 1);
-    this.isLunarCalendar = false;
+    this.isLunarCalendar = this.userService.userData.DateType === 0 ? false : true;
+
   }
 
   ngOnInit() {
     // 讀取使用者資訊
-    this.nativeStorage.getItem('UserData')
-      .then(
-        data => this.userData = data,
-        error => console.error(error)
-      );
+    this.userData = this.userService.getUser();
 
     if (this.userData) {
       this.year = this.userData.Year;
@@ -72,12 +71,26 @@ export class HomePage implements OnInit {
       this.cellPhone = this.userData.Cellphone;
     }
 
+    // this.validationsForm = this.formBuilder.group({
+    //   username: new FormControl('', Validators.required),
+    //   year: new FormControl('', Validators.required),
+    //   month: new FormControl('', Validators.required),
+    //   day: new FormControl('', Validators.required),
+    //   birthdaytime: new FormControl('', Validators.required),
+    //   cellphone: new FormControl('', Validators.compose([
+    //     Validators.required,
+    //     Validators.pattern('^\d{1,10}$')
+    //   ])),
+    // });
   }
 
   // 陰陽曆轉換
   segmentChanged(ev: any) {
     let yearVal: number;
     let lastDay: number;
+
+    this.userService.userData.Month = 1;
+    this.userService.userData.Day = 1;
 
     if (this.year.toString().length > 4) {
       yearVal = new Date(this.year).getFullYear();
@@ -90,7 +103,14 @@ export class HomePage implements OnInit {
       this.month = 1;
       this.day = 1;
       // 調用API取得陰曆月份及天數
-      this.dataService.getLunarDate(yearVal).subscribe((res) => {
+      // this.LunarDates = this.dataService.getLunarDate2(yearVal);
+
+      // this.setLunarMonth(); // 設置陰曆月份
+      // lastDay = this.getLunarMonthLastDay(this.month); // 取得陰曆當月最後一天
+      // this.dayVal = Array.from({ length: lastDay }, (v, i) => i + 1); // 設置天數
+      // this.day = this.day > lastDay ? 1 : this.day; // 超過當月最後一天重設為1
+
+      this.LunarDateSubs = this.dataService.getLunarDate(yearVal).subscribe((res) => {
         this.LunarDates = res;
         this.setLunarMonth(); // 設置陰曆月份
         lastDay = this.getLunarMonthLastDay(this.month); // 取得陰曆當月最後一天
@@ -99,7 +119,6 @@ export class HomePage implements OnInit {
       });
 
       // this.LunarDates = this.dataService.getLunarDate(this.year);
-      // console.log('SegmentChanged LunarDates', this.LunarDates);
     } else {
       this.month = 1;
       this.day = 1;
@@ -126,20 +145,23 @@ export class HomePage implements OnInit {
 
     if (this.isLunarCalendar) {
       // 調用API取得陰曆月份及天數
-      this.dataService.getLunarDate(yearVal).subscribe((res) => {
+      this.LunarDateSubs = this.dataService.getLunarDate(yearVal).subscribe((res) => {
         this.LunarDates = res;
         this.setLunarMonth(); // 設置陰曆月份
         lastDay = this.getLunarMonthLastDay(this.month); // 取得陰曆當月最後一天
+
         this.dayVal = Array.from({ length: lastDay }, (v, i) => i + 1); // 設置天數
         this.day = this.day > lastDay ? 1 : this.day; // 超過當月最後一天重設為1
       });
     } else {
       this.monthVal = Array.from({ length: 12 }, (v, i) => i + 1); // 設置月份
       // this.isRunyue = false; // 是否為閏月設定為否
-      lastDay = this.getADMonthLastDay(yearVal, this.month); // 取得陽曆當月最後一天
+      lastDay = this.getADMonthLastDay(yearVal, this.userService.userData.Month); // 取得陽曆當月最後一天
+      // console.log('y m d', yearVal + ',' + this.userService.userData.Month + ',' + lastDay);
       this.dayVal = Array.from({ length: lastDay }, (v, i) => i + 1); // 設置天數
       this.day = this.day > lastDay ? 1 : this.day; // 超過當月最後一天重設為1
     }
+    this.userService.userData.Year = new Date(ev.target.value).getFullYear();
   }
 
   // 月份轉換
@@ -148,12 +170,19 @@ export class HomePage implements OnInit {
     if (this.isLunarCalendar) {
       lastDay = this.getLunarMonthLastDay(ev.detail.value); // 取得陰曆當月最後一天
       this.dayVal = Array.from({ length: lastDay }, (v, i) => i + 1); // 設置天數
+
     } else {
       // this.isRunyue = false; // 是否為閏月設定為否
-      lastDay = this.getADMonthLastDay(new Date(this.year).getFullYear(), ev.detail.value); // 取得陽曆當月最後一天
+      lastDay = this.getADMonthLastDay(this.userService.userData.Year, ev.detail.value); // 取得陽曆當月最後一天
       this.dayVal = Array.from({ length: lastDay }, (v, i) => i + 1);
     }
     this.day = this.day > lastDay ? 1 : this.day; // 超過當月最後一天重設為1
+  }
+
+  // 出生時辰轉換
+  changeBirthTime(ev: any) {
+    this.userService.userData.SelectedBirthTimeText = this.userService.birthTimeSelect.find(
+      (item) => item.id === this.userData.BirthTime).text;
   }
 
   // 取得西元年月份最後一天
@@ -163,6 +192,7 @@ export class HomePage implements OnInit {
 
   // 取得陰曆月份最後一天，並設定是否為閏月
   getLunarMonthLastDay(month: any) {
+    // this.userService.userData.SelectedMonthText = month;
     let lunarMonth: LunarDate;
     if (month.length > 1) {
       month = Number(month.replace('閏', ''));
@@ -191,28 +221,6 @@ export class HomePage implements OnInit {
 
   onMySubmit(form: NgForm) {
 
-    if (!form.valid) {
-      this.authService.inputnotvaild();
-      return;
-    }
-
-    const mon = form.value.month.length > 1 ? Number(String(form.value.month).replace('閏', '')) : form.value.month;
-
-    this.userData = {
-      Name: form.value.username,
-      Gender: form.value.dateType,
-      Cellphone: form.value.cellphone,
-      BirthTime: Number(form.value.birthdaytime),
-      DateType: Number(form.value.dateType),
-      Year: Number(form.value.year),
-      // Month: form.value.month,
-      Month: mon,
-      Day: Number(form.value.day),
-      IsLeap: this.isRunyue
-    };
-
-    // console.log('userDate', this.userData);
-
     this.loadingCtrl.create({ keyboardClose: true, message: '加載中...' })
       .then(loadingEl => {
         loadingEl.present();
@@ -225,14 +233,8 @@ export class HomePage implements OnInit {
         //   this.router.navigate(['/home/tabs/astrology']);
         // }, 1500);
 
-
-        this.userService.setUser(this.userData);
         // 儲存使用者資訊
-        this.nativeStorage.setItem('UserData', this.userData)
-          .then(
-            (data) => console.log('Stored data!', data),
-            error => console.error('Error storing item', error)
-          );
+        this.userService.setUser(this.userData);
 
         // 讀取
         // this.nativeStorage.getItem('UserData')
@@ -253,13 +255,29 @@ export class HomePage implements OnInit {
         //   console.log('Your name is', val);
         // });
 
-        this.authService.inputvaild();
         // this.homeService.fetchHalfResult();
         loadingEl.dismiss();
         this.router.navigate(['/astrology']);
-
-
       });
   }
+
+  async notYet() {
+    const alert = await this.alertController.create({
+      header: '訊息',
+      subHeader: '',
+      message: '本功能尚未開放。',
+      buttons: ['確定']
+    });
+
+    await alert.present();
+    // const result = await alert.onDidDismiss();
+    // console.log(result);
+  }
+
+  ngOnDestroy() {
+    // this.dataSubs.unsubscribe();
+    this.LunarDateSubs.unsubscribe();
+  }
+
 
 }

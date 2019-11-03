@@ -1,6 +1,6 @@
 {
   "/api/*": {
-    "target": "http://1.34.27.193",
+    "target": "https://fate.opoint.com.tw/Fate",
     "secure": false,
     "changeOrigin": true
   }

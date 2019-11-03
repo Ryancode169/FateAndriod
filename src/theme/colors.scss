@@ -6,6 +6,20 @@
   --ion-color-yellow-shade: #e0aa08;
   --ion-color-yellow-tint: #ffc722;
 
+  --ion-color-yellow2: #FFCA28;
+  --ion-color-yellow2-rgb: 255,202,40;
+  --ion-color-yellow2-contrast: #ffffff;
+  --ion-color-yellow2-contrast-rgb: 255, 255, 255;
+  --ion-color-yellow2-shade: #e0b223;
+  --ion-color-yellow2-tint: #ffcf3e;
+
+  --ion-color-yellow3: #FFD180;
+  --ion-color-yellow3-rgb: 255,209,128;
+  --ion-color-yellow3-contrast: #000000;
+  --ion-color-yellow3-contrast-rgb: 0,0,0;
+  --ion-color-yellow3-shade: #e0b871;
+  --ion-color-yellow3-tint: #ffd68d;
+
   --ion-color-bisque: #fed17f;
   --ion-color-bisque-rgb: 254, 209, 127;
   --ion-color-bisque-contrast: #000000;
@@ -15,8 +29,8 @@
 
   --ion-color-limegreen: #9bcc65;
   --ion-color-limegreen-rgb: 155, 204, 101;
-  --ion-color-limegreen-contrast: #000000;
-  --ion-color-limegreen-contrast-rgb: 0, 0, 0;
+  --ion-color-limegreen-contrast: #ffffff;
+  --ion-color-limegreen-contrast-rgb: 255, 255, 255;
   --ion-color-limegreen-shade: #88b459;
   --ion-color-limegreen-tint: #a5d174;
 
@@ -41,6 +55,13 @@
   --ion-color-lightyellow-shade: #e0dbac;
   --ion-color-lightyellow-tint: #fffaca;
 
+  --ion-color-blue: #42A5F5;
+  --ion-color-blue-rgb: 66,165,245;
+  --ion-color-blue-contrast: #ffffff;
+  --ion-color-blue-contrast-rgb: 255,255,255;
+  --ion-color-blue-shade: #3a91d8;
+  --ion-color-blue-tint: #55aef6;
+
   // 參考 https://ionicframework.com/docs/theming/themes
   // 設定全局 toolbar 樣式
   --ion-toolbar-background: var(--ion-color-darkorange);
@@ -57,7 +78,10 @@ $customColors: (
   "limegreen",
   "coral",
   "darkorange",
-  "lightyellow"
+  "lightyellow",
+  "yellow2",
+  "yellow3",
+  "blue"
 );
 @each $color in $customColors {
   .ion-color-#{$color} {

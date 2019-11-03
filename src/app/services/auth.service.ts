@@ -1,24 +1,41 @@
 import { Injectable } from '@angular/core';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private isAuthenticated = false;
+  constructor(private userService: UserService) { }
 
-  constructor() { }
+  // 檢查表單是否有填
+  get  userIsAuthenticated(): boolean {
 
-  inputvaild() {
-    this.isAuthenticated = true;
+    if (this.userService.userData.Name.toString().length === 0) {
+      return false;
+    }
+
+    if (this.userService.userData.Year.toString().length === 0) {
+      return false;
+    }
+
+    if (this.userService.userData.Month.toString().length === 0) {
+      return false;
+    }
+
+    if (this.userService.userData.Day.toString().length === 0) {
+      return false;
+    }
+
+    if (this.userService.userData.BirthTime.toString().length === 0) {
+      return false;
+    }
+
+    if (this.userService.userData.Cellphone.toString().length === 0) {
+      return false;
+    }
+    return true;
   }
 
-  inputnotvaild() {
-    this.isAuthenticated = false;
-  }
-
-  get userIsAuthenticated() {
-    return this.isAuthenticated;
-  }
 
 }

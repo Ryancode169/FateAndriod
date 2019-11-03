@@ -7,6 +7,16 @@ import { Astrology, AstrologyChartEntity } from '../services/data.model';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { LoadingController } from '@ionic/angular';
 
+interface AstrologyChartEntityDisplay {
+  astrologyt: AstrologyChartEntity;
+  allStars: StarDisplay[];
+}
+
+interface StarDisplay {
+  star: string;
+  status: string;
+}
+
 @Component({
   selector: 'app-astrology',
   templateUrl: './astrology.page.html',
@@ -14,9 +24,13 @@ import { LoadingController } from '@ionic/angular';
 })
 export class AstrologyPage implements OnInit, OnDestroy {
 
+  private ziweiSubs: Subscription;
+
   userData: User;
   localData: Observable<Astrology>;
-  astrologyChart: AstrologyChartEntity[];
+
+  public astrology: Astrology;
+  display: AstrologyChartEntityDisplay[];
   private dataSubs: Subscription;
 
   chartArray: AstrologyChartEntity[];
@@ -25,11 +39,28 @@ export class AstrologyPage implements OnInit, OnDestroy {
     private userService: UserService,
     private dataService: DataService,
     private nativeStorage: NativeStorage,
-    private loadingCtrl: LoadingController) { }
+    private loadingCtrl: LoadingController) {
+
+    this.astrology = {
+      Heavenly: '',
+      Branch: '',
+      BirthDay: '',
+      BirthTime: '',
+      Month: '',
+      Day: '',
+      AstrologyChart: [],
+      FiveElements: '',
+      LifeMajorStar: '',
+      BodyMajorStar: '',
+      HuaLu: '',
+      HuaChiuan: '',
+      HuaKe: '',
+      HuaJi: '',
+      Videos: [],
+    };
+  }
 
   ngOnInit() {
-    // console.log('ngOnInit!');
-
     this.loadingCtrl.create({ keyboardClose: true, message: '加載中...' })
       .then(loadingEl => {
         loadingEl.present();
@@ -42,8 +73,21 @@ export class AstrologyPage implements OnInit, OnDestroy {
         //   this.router.navigate(['/home/tabs/astrology']);
         // }, 1500);
 
-        this.dataService.getZiweiData().subscribe((res) => {
-          this.astrologyChart = res.AstrologyChart;
+        this.ziweiSubs = this.dataService.getZiweiData().subscribe((res) => {
+          this.astrology = res;
+          this.display = res.AstrologyChart.map(a => {
+            return {
+              astrologyt: a,
+              allStars:
+                (a.major.concat(a.minor).concat(a.righteous).concat(a.secondary)).map(s => {
+                  return {
+                    star: s.Star,
+                    status: s.Status
+                  } as StarDisplay;
+                }
+                )
+            } as AstrologyChartEntityDisplay;
+          });
         });
 
         loadingEl.dismiss();
@@ -59,7 +103,7 @@ export class AstrologyPage implements OnInit, OnDestroy {
   // }
 
   ngOnDestroy() {
-    this.dataSubs.unsubscribe();
+    this.ziweiSubs.unsubscribe();
   }
 
 }

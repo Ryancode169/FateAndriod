@@ -1,61 +1,142 @@
 <ion-header>
-    <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-menu-button></ion-menu-button>
-        <ion-back-button defaultHref="home"></ion-back-button>
-      </ion-buttons>
-      <ion-title>詹惟中紫微斗數</ion-title>
-      <ion-buttons slot="end">
-        <ion-button (click)="presentPopover()">
-          <ion-icon slot="icon-only" name="settings"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>詹惟中紫微斗數</ion-title>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon slot="icon-only" name="settings"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
 <ion-content>
-  <ion-card *ngFor="let d of astrologyChart" color="bisque">
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>個人訊息</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-text color="primary">
+        <h3>您的姓名: {{userData.Name}} </h3>
+      </ion-text>
+      <ion-text color="primary">
+        <h3>出生日期 公(陽)歷: {{ astrology.BirthDay }}</h3>
+      </ion-text>
+      <ion-text color="primary">
+        <h3>出生日期 農(陰)歷: {{astrology.Heavenly}}{{ astrology.Branch}} {{ astrology.Month}}月 {{ astrology.Day}}日
+          {{ astrology.BirthTime}}時</h3>
+      </ion-text>
+
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngFor="let d of astrologyChart" color="">
     <ion-card-header color="yellow">
       <ion-card-title class="ion-text-center">{{d.palace}}</ion-card-title>
     </ion-card-header>
 
     <ion-card-content>
-      <ion-list>
-        <ion-item>
-          <ion-label>{{d.score}}</ion-label>
+      <!-- 
+<ion-grid>
+  <ion-row  *ngIf="d.major.length>0">
+    <ion-col>
+        主星
+    </ion-col>
+    <ion-col>
+        <div *ngFor="let d1 of d.major" class="ion-margin"> {{ d1.Star }}</div>
+      </ion-col>
+  </ion-row>
+</ion-grid> -->
+      <!-- 
+      <ion-card>
+        <ion-card-content class="ion-no-padding">
+           
+
+        </ion-card-content>
+      </ion-card> -->
+
+      <ion-list class="ion-padding">
+        <ion-item *ngIf="d.major.length>0" color="limegreen">
+          <ion-label class="ion-no-margin">主星</ion-label>
+          <div *ngFor="let d1 of d.major" class="stars"> {{ d1.Star }}</div>
         </ion-item>
-        <ion-item>
-          <ion-label>{{d.heavenly}}</ion-label>
+        <ion-item *ngIf="d.minor.length>0" color="yellow2">
+          <ion-label class="ion-no-margin">次主星</ion-label>
+          <div *ngFor="let d2 of d.minor" class="stars"> {{d2.Star}} </div>
         </ion-item>
-        <ion-item>
-          <ion-label>{{d.branch}}</ion-label>
+        <ion-item *ngIf="d.secondary.length>0" color="coral">
+          <ion-label class="ion-no-margin">副星</ion-label>
+          <div *ngFor="let d1 of d.secondary" class="stars"> {{d1.Star}} </div>
         </ion-item>
-        <ion-item>
-          <ion-label *ngFor="let maj of d.major">
-            {{maj.Star}} {{maj.Status}}
-          </ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-label *ngFor="let min of d.minor">
-            {{min.Star}} {{min.Status}}
-          </ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-label *ngFor="let rig of d.righteous">
-            {{rig.Star}} {{rig.Status}}
-          </ion-label>
+        <ion-item *ngIf="d.righteous.length>0" color="blue">
+          <ion-label class="ion-no-margin">正邪星</ion-label>
+          <div *ngFor="let d1 of d.righteous" class="stars"> {{d1.Star}} </div>
         </ion-item>
       </ion-list>
 
-      <div>
-        {{d.majorDescription}}
-      </div>
-      <div>
-        {{d.minorDescription}}
-      </div>
-      <div>
-        {{d.righteousDescription}}
-      </div>
+
+
+      <ion-card *ngIf="d.majorDescription.length>0">
+        <ion-card-header>
+          <ion-card-title color="limegreen">
+            <ion-icon name="star"></ion-icon>主星
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          {{d.majorDescription}}
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card *ngIf="d.minorDescription.length>0">
+        <ion-card-header>
+          <ion-card-title color="yellow">
+            <ion-icon name="star"></ion-icon>次主星
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          {{d.minorDescription}}
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card *ngIf="d.secondaryDescription.length>0">
+        <ion-card-header>
+          <ion-card-title color="coral">
+            <ion-icon name="star"></ion-icon>副星
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          {{d.secondaryDescription}}
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card *ngIf="d.righteousDescription.length>0">
+        <ion-card-header>
+          <ion-card-title color="secondary">
+            <ion-icon name="star"></ion-icon>正邪星
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          {{d.righteousDescription}}
+        </ion-card-content>
+      </ion-card>
+
+
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title class="ion-text-center">總體評論 </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-text color="primary" class="ion-text-center">
+            <h1>{{d.score}} 分</h1>
+          </ion-text>
+          <div class="score"></div>
+        </ion-card-content>
+      </ion-card>
 
     </ion-card-content>
   </ion-card>

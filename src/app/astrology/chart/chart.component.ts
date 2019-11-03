@@ -1,6 +1,16 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AstrologyChartEntity } from 'src/app/services/data.model';
 
+interface AstrologyChartEntityDisplay {
+  astrologyt: AstrologyChartEntity;
+  allStars: StarDisplay[];
+}
+
+interface StarDisplay {
+  star: string;
+  status: string;
+}
+
 @Component({
   selector: 'app-chart',
   templateUrl: './chart.component.html',
@@ -8,9 +18,11 @@ import { AstrologyChartEntity } from 'src/app/services/data.model';
 })
 export class ChartComponent implements OnInit {
 
-  @Input() chart: AstrologyChartEntity;
+  @Input() chart: AstrologyChartEntityDisplay;
   constructor() { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    
+  }
 
 }

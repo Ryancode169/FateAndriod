@@ -7,8 +7,9 @@
   "type": "angular",
   "proxies": [
     {
-        "path": "/api",
-        "proxyUrl": "http://1.34.27.193"
+      "path": "/api", 
+      "proxyUrl": "https://fate.opoint.com.tw/Fate/api/"
     }
   ]
+  
 }

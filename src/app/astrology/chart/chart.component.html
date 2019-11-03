@@ -1,7 +1,7 @@
 <div>
-  <div *ngFor="let d of chart.major">{{d.Star}}</div>
+  <div *ngFor="let d of chart.allStars">{{ d.star + ' ' + d.status }}</div>
 </div>
 <div class="inner-bottom">
-  <div class="ion-text-start">{{chart.palace}}</div>
-  <div class="ion-text-end">{{chart.heavenly}}{{chart.branch}}</div>
+  <div class="ion-text-start">{{chart.astrologyt.palace}}</div>
+  <div class="ion-text-end">{{chart.astrologyt.heavenly}}{{chart.astrologyt.branch}}</div>
 </div>

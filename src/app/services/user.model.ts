@@ -8,4 +8,5 @@ export interface User {
   Month: number;
   Day: number;
   IsLeap: boolean; // 潤月
+  SelectedBirthTimeText: string;
 }

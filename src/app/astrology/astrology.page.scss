@@ -24,7 +24,7 @@
   
   .flex-wrap {
     position: relative;
-    font-size: 0.7rem;
+    font-size: 0.75rem;
   }
   
   .flex-container {
@@ -32,13 +32,13 @@
     flex-wrap: nowrap;
   }
   .flex-container > div {
-    height: 5rem;
+    min-height: 10rem;
     text-align: left;
     position: relative;
   }
   
   .flex-container > div > div {
-    height: 2.5rem;
+    min-height: 5rem;
     padding: 2px;
     position: relative;
   }
@@ -85,10 +85,11 @@
   
   .flex-center {
     position: absolute;
-    top: 5rem;
+    top: 10rem;
     left: 25%;
-    height: 10rem;
+    height: 20rem;
     width: 50%;
-    border: 1px solid red;
+    border: 1px solid var(--ion-color-darkorange);
+    padding:0.5rem;
   }
   
