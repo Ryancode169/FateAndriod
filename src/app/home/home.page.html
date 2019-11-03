@@ -5,7 +5,7 @@
     </ion-buttons>
     <ion-title>詹惟中紫微斗數</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="presentPopover()">
+      <ion-button>
         <ion-icon slot="icon-only" name="settings"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -22,55 +22,123 @@
     </ion-row>
     <ion-row>
       <ion-col id="info" size-md="8" offset-md="2">
-        <!-- <form #f="ngForm" (ngSubmit)="onSubmit(f)"> -->
-            <form #f="ngForm" (ngSubmit)="onMySubmit(f)">
+        <!-- <form [formGroup]="validationsForm"> 
+          <ion-input type="text" formControlName="username"></ion-input>
+        </form> -->
+
+
+        <form #f="ngForm" (ngSubmit)="onMySubmit(f)">
+
           <ion-card class="ion-no-margin">
             <ion-card-header>
               <ion-card-title>了解您的紫微命盤</ion-card-title>
             </ion-card-header>
             <ion-card-content>
-              <ion-item>
-                <ion-label position="stacked">您的姓名<ion-text color="danger">*</ion-text>
-                </ion-label>
-                <ion-input type="text" ngModel name="username" required #unameCtrl="ngModel"></ion-input>
-              </ion-item>
-              <!-- <ion-item *ngIf="!unameCtrl.valid && unameCtrl.touched" lines="none">
-                    請填入姓名
-                  </ion-item> -->
 
               <ion-item>
+                <ion-label position="stacked">您的姓名
+                  <!-- <ion-text color="danger">*</ion-text> -->
+                </ion-label>
+                <ion-input type="text" [(ngModel)]="userService.userData.Name" name="username" required
+                  #unameCtrl="ngModel"></ion-input>
+              </ion-item>
+
+
+              <!-- <ion-item class="" lines="none">
+                  
+                  <ion-segment (ionChange)="segmentChanged($event)" color="darkorange">
+                      <ion-segment-button value="0" checked>
+                        <ion-label>國曆</ion-label>
+                      </ion-segment-button>
+                      <ion-segment-button value="1">
+                        <ion-label>陰曆</ion-label>
+                      </ion-segment-button>
+                    </ion-segment>
+              </ion-item> -->
+
+              <ion-item class="ion-padding-top">
+                <ion-label position="stacked">曆法</ion-label>
+                <ion-segment [(ngModel)]="userService.userData.DateType" name="dateType"
+                  (ionChange)="segmentChanged($event)" color="darkorange">
+                  <ion-segment-button value="0" checked>
+                    <ion-label>國曆</ion-label>
+                  </ion-segment-button>
+                  <ion-segment-button value="1">
+                    <ion-label>陰曆</ion-label>
+                  </ion-segment-button>
+                </ion-segment>
+                <!-- <ion-select placeholder="" okText="確定" cancelText="取消">
+                  <ion-select-option value="0">國曆</ion-select-option>
+                  <ion-select-option value="1">陰曆</ion-select-option>
+                </ion-select> -->
+              </ion-item>
+
+              <ion-item>
+                <ion-label position="stacked">年</ion-label>
+                <ion-datetime name="year" displayFormat="YYYY" min="1911" [(ngModel)]="year"
+                  (ionChange)="changeYear($event)" required></ion-datetime>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked">月</ion-label>
+                <!-- <ion-datetime name="month" [(ngModel)]="month" [monthValues]="monthVal" displayFormat="MM" (ionChange)="changeMonth($event)" required></ion-datetime> -->
+                <ng-container *ngIf="isLunarCalendar; else notLunarCalendar">
+                  <ion-select [(ngModel)]="userService.userData.Month" name="month"
+                    [selectedText]="userService.userData.Month" (ionChange)="changeMonth($event)" required>
+                    <ng-container *ngFor="let mon of LunarDates;">
+                      <ng-container *ngIf="mon.IsLeap; else notLeap">
+                        <ion-select-option>閏{{mon.Month}}</ion-select-option>
+                      </ng-container>
+                      <ng-template #notLeap>
+                        <ion-select-option [value]="mon.Month">{{mon.Month}}</ion-select-option>
+                      </ng-template>
+                    </ng-container>
+                  </ion-select>
+                </ng-container>
+                <ng-template #notLunarCalendar>
+                  <ion-select [(ngModel)]="userService.userData.Month" name="month"
+                    [selectedText]="userService.userData.Month" required (ionChange)="changeMonth($event)">
+                    <ion-select-option *ngFor="let mon of monthVal">{{mon}}</ion-select-option>
+                  </ion-select>
+                </ng-template>
+
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked">日</ion-label>
+                <ion-select [(ngModel)]="userService.userData.Day" name="day" [selectedText]="userService.userData.Day"
+                  required>
+                  <ion-select-option *ngFor="let d of dayVal">{{d}}</ion-select-option>
+                </ion-select>
+                <!-- <ion-datetime name="day" [(ngModel)]="day" [dayValues]="dayVal" displayFormat="DD" value="1" required></ion-datetime> -->
+              </ion-item>
+
+              <!-- <ion-item>
                 <ion-label position="stacked">出生日期 <ion-text color="danger">*</ion-text>
                 </ion-label>
                 <ion-datetime displayFormat="YYYY-MM-DD" placeholder="" ngModel name="birthday" required></ion-datetime>
-              </ion-item>
+              </ion-item> -->
 
               <ion-item>
-                <ion-label position="stacked">出生時間 <ion-text color="danger">*</ion-text>
+                <ion-label position="stacked">出生時辰
                 </ion-label>
-                <ion-select ngModel name="birthdaytime" required>
-                  <ion-select-option value="0">00:00~00:59</ion-select-option>
-                  <ion-select-option value="1">01:00~02:59</ion-select-option>
-                  <ion-select-option value="2">03:00~04:59</ion-select-option>
-                  <ion-select-option value="3">05:00~06:59</ion-select-option>
-                  <ion-select-option value="4">07:00~08:59</ion-select-option>
-                  <ion-select-option value="5">09:00~10:59</ion-select-option>
-                  <ion-select-option value="6">11:00~12:59</ion-select-option>
-                  <ion-select-option value="7">13:00~14:59</ion-select-option>
-                  <ion-select-option value="8">15:00~16:59</ion-select-option>
-                  <ion-select-option value="9">17:00~18:59</ion-select-option>
-                  <ion-select-option value="10">19:00~20:59</ion-select-option>
-                  <ion-select-option value="11">21:00~22:59</ion-select-option>
-                  <ion-select-option value="12">23:00~23:59</ion-select-option>
+                <ion-select placeholder="" [(ngModel)]="userService.userData.BirthTime" name="birthdaytime"
+                  [selectedText]="userService.userData.SelectedBirthTimeText" (ionChange)="changeBirthTime($event)"
+                  required>
+                  <ion-select-option *ngFor="let time of userService.birthTimeSelect" [value]="time.id">{{time.text}}
+                  </ion-select-option>
+
                 </ion-select>
+
               </ion-item>
 
               <ion-item>
-                <ion-label position="stacked">手機號碼 <ion-text color="danger">*</ion-text>
+                <ion-label position="stacked">手機號碼
                 </ion-label>
-                <ion-input type="tel" ngModel name="cellphone" required></ion-input>
+                <ion-input type="tel" [(ngModel)]="userService.userData.Cellphone" name="cellphone" required>
+                </ion-input>
               </ion-item>
               <div class="ion-margin-top">
-                <ion-button type="submit" color="primary" expand="full" [disabled]="!f.valid">立即了解你的紫微命盤 免費</ion-button>
+                <ion-button type="submit" color="primary" expand="full" [disabled]="!authService.userIsAuthenticated">
+                  立即了解你的紫微命盤 免費</ion-button>
               </div>
             </ion-card-content>
           </ion-card>
@@ -107,18 +175,23 @@
 
     <ion-row class="ion-text-center">
       <ion-col size-sm="4" size-md="2" offset-md="3">
-        <a [routerLink]="['/','zhan']">
+        <a href="http://1.34.27.193/Videos/introduction.mp4">
           <ion-img src="../../assets/images/videos.png"></ion-img>
           <!-- <img src="../../assets/images/videos.png" alt=""> -->
         </a>
         <div class="ion-margin">詹老師的話</div>
       </ion-col>
       <ion-col size-sm="4" size-md="2">
+        <a (click)="notYet()">
           <ion-img src="../../assets/images/record.png"></ion-img>
-        <div class="ion-margin">測算紀錄</div>
+          <div class="ion-margin">測算紀錄</div>
+        </a>
       </ion-col>
       <ion-col size-sm="4" size-md="2">
+        <a (click)="notYet()">
           <ion-img src="../../assets/images/customer_service.png"></ion-img>
+          <!-- <img src="../../assets/images/customer_service.png" alt=""> -->
+        </a>
         <div class="ion-margin">客服</div>
       </ion-col>
     </ion-row>

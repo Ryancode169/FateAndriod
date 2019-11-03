@@ -4,5 +4,12 @@
     "capacitor": {},
     "cordova": {}
   },
-  "type": "angular"
+  "type": "angular",
+  "proxies": [
+    {
+      "path": "/api", 
+      "proxyUrl": "https://fate.opoint.com.tw/Fate/api/"
+    }
+  ]
+  
 }

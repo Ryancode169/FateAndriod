@@ -1,0 +1,7 @@
+{
+  "/api/*": {
+    "target": "https://fate.opoint.com.tw/Fate",
+    "secure": false,
+    "changeOrigin": true
+  }
+}

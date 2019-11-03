@@ -4,6 +4,18 @@ import { UserService } from '../services/user.service';
 import { User } from '../services/user.model';
 import { Observable, Subscription } from 'rxjs';
 import { Astrology, AstrologyChartEntity } from '../services/data.model';
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { LoadingController } from '@ionic/angular';
+
+interface AstrologyChartEntityDisplay {
+  astrologyt: AstrologyChartEntity;
+  allStars: StarDisplay[];
+}
+
+interface StarDisplay {
+  star: string;
+  status: string;
+}
 
 @Component({
   selector: 'app-astrology',
@@ -12,49 +24,86 @@ import { Astrology, AstrologyChartEntity } from '../services/data.model';
 })
 export class AstrologyPage implements OnInit, OnDestroy {
 
-  userDate: User;
+  private ziweiSubs: Subscription;
+
+  userData: User;
   localData: Observable<Astrology>;
-  astrologyChart: AstrologyChartEntity[];
+
+  public astrology: Astrology;
+  display: AstrologyChartEntityDisplay[];
   private dataSubs: Subscription;
 
   chartArray: AstrologyChartEntity[];
 
   constructor(
     private userService: UserService,
-    private dataService: DataService) { }
+    private dataService: DataService,
+    private nativeStorage: NativeStorage,
+    private loadingCtrl: LoadingController) {
+
+    this.astrology = {
+      Heavenly: '',
+      Branch: '',
+      BirthDay: '',
+      BirthTime: '',
+      Month: '',
+      Day: '',
+      AstrologyChart: [],
+      FiveElements: '',
+      LifeMajorStar: '',
+      BodyMajorStar: '',
+      HuaLu: '',
+      HuaChiuan: '',
+      HuaKe: '',
+      HuaJi: '',
+      Videos: [],
+    };
+  }
 
   ngOnInit() {
+    this.loadingCtrl.create({ keyboardClose: true, message: '加載中...' })
+      .then(loadingEl => {
+        loadingEl.present();
+
+        // 測試 Loading 效果
+        // setTimeout(() => {
+        //   this.homeService.setUserData(form.value.username, form.value.birthday, form.value.birthdaytime, form.value.cellphone);
+        //   this.authService.inputvaild();
+        //   loadingEl.dismiss();
+        //   this.router.navigate(['/home/tabs/astrology']);
+        // }, 1500);
+
+        this.ziweiSubs = this.dataService.getZiweiData().subscribe((res) => {
+          this.astrology = res;
+          this.display = res.AstrologyChart.map(a => {
+            return {
+              astrologyt: a,
+              allStars:
+                (a.major.concat(a.minor).concat(a.righteous).concat(a.secondary)).map(s => {
+                  return {
+                    star: s.Star,
+                    status: s.Status
+                  } as StarDisplay;
+                }
+                )
+            } as AstrologyChartEntityDisplay;
+          });
+        });
+
+        loadingEl.dismiss();
+      });
   }
 
-  ionViewWillEnter() {
-
-    // this.storage.get('username').then((val) => {
-    //   console.log('Your name is', val);
-    // });
-
-    this.userDate = this.userService.getUser();
-    // console.log(this.userDate);
-
-    this.localData = this.dataService.getLocalData();
-
-    this.dataSubs = this.localData.subscribe((res) => {
-      this.astrologyChart = res.AstrologyChart;
-      // this.chart3 = res.AstrologyChart[2];
-      // this.chart4 = res.AstrologyChart[3];
-      // this.chart5 = res.AstrologyChart[4];
-      // this.chart6 = res.AstrologyChart[5];
-      // this.chart7 = res.AstrologyChart[6];
-      // this.chart8 = res.AstrologyChart[7];
-      // this.chart9 = res.AstrologyChart[8];
-      // this.chart10 = res.AstrologyChart[9];
-      // this.chart11 = res.AstrologyChart[10];
-      // this.chart12 = res.AstrologyChart[11];
-
-    });
-  }
+  // ionViewWillEnter() {
+  //   this.userData = this.userService.getUser();
+  //   this.localData = this.dataService.getLocalData();
+  //   this.dataSubs = this.localData.subscribe((res) => {
+  //     this.astrologyChart = res.AstrologyChart;
+  //   });
+  // }
 
   ngOnDestroy() {
-    this.dataSubs.unsubscribe();
+    this.ziweiSubs.unsubscribe();
   }
 
 }

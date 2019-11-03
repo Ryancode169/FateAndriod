@@ -1,6 +1,6 @@
 {
-  "appId": "io.ionic.starter",
-  "appName": "p8",
+  "appId": "com.fate.opoint",
+  "appName": "fortune",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",
